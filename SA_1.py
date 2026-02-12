@@ -8,6 +8,7 @@ import numba as nb
 # =========================
 # 1. 场景构造与几何工具 (保持不变)
 # =========================
+
 def create_complex_steiner_scene():
     """
     创建一个更大、更复杂的Steiner TSP场景
@@ -15,17 +16,10 @@ def create_complex_steiner_scene():
     特点: 起终点重合(S/E), 包含必须经由的点(Waypoints)与可选经过的点(Steiner Points)
     修正: 调整障碍物位置，确保不覆盖任何节点
     """
-
-    def create_biomimetic_robot_scene():
-    """
-    仿生微型机器人 - 室内迷宫探测任务
-    地图范围: 0-10 × 0-10 (分米dm)
-    特点: 起终点重合（入口Base），在狭窄通道中巡检采样点
-    障碍物: 模拟墙体、磁场干扰区、狭窄通道
-    """
     # 起点与终点重合（入口Base）
     start_end_coord = (0.0, 0.0)
 
+  
     # 必须经过的点（采样点 - 10个）
     waypoints = [
         (3.0, 0.0),   # 采样点A
@@ -70,10 +64,10 @@ def create_complex_steiner_scene():
     
     # 标签生成
     point_labels = (
-        ['Base'] +
-        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'] +
-        ['R1', 'Chg1', 'R2', 'Chg2'] +
-        ['Base']
+        ['S'] 
+        + [f'W{i+1}' for i in range(len(waypoints))] 
+        + [f'O{i+1}' for i in range(len(optional_points))] 
+        + ['E']
     )
     
     label_to_coord = {label: coord for label, coord in zip(point_labels, all_points)}
@@ -123,11 +117,11 @@ def visualize_solution(all_points, point_labels, label_to_coord, obstacles, sele
         mid_x, mid_y = (p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2
         ax.arrow(mid_x, mid_y, (p2[0]-p1[0])*0.1, (p2[1]-p1[1])*0.1, head_width=0.2, head_length=0.3, alpha=0.8)
     
-    ax.set_xlim(-2, 22)
-    ax.set_ylim(-2, 22)
+    ax.set_xlim(-5, 22)
+    ax.set_ylim(-5, 12)
     ax.grid(True, alpha=0.3)
     ax.set_aspect('equal', 'box')
-    ax.set_title(f'Complex Steiner Path (Ising SA -1/+1 Mode)\nTotal Distance: {total_distance:.2f}')
+    ax.set_title(f'无人机低空配送 - 园区走廊网络 (Ising SA -1/+1 Mode)\nTotal Distance: {total_distance:.2f}')
     return fig, ax
 @nb.njit
 def _numba_sa_core(N_vars, num_reads, t_max, decay_rate, h_isi, J_isi, num_sweeps):
