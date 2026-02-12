@@ -18,17 +18,17 @@ def create_complex_steiner_scene():
     修正: 调整障碍物位置，确保不覆盖任何节点
     """
     # 起点与终点重合（入口Base）
-    start_end_coord = (0.0, 0.0)
+    start_end_coord = (-10.0, -20.0)
 
    # 必须经过的点（关键气候站 - 13个）
     waypoints = [
         (-8.0, 12.0),    # 格陵兰冰芯站Greenland-Ice
-        (-15.0, -5.0),   # 亚马逊雨林站Amazon-Forest
+        (0.0, -15.0),   # 亚马逊雨林站Amazon-Forest
         (6.0, 15.0),     # 斯瓦尔巴北极站Svalbard-Arctic
         (18.0, -8.0),    # 西伯利亚冻土站Siberia-Permafrost
         (25.0, 5.0),     # 青藏高原站Tibet-Plateau
         (22.0, -15.0),   # 澳洲内陆站Australia-Outback
-        (-12.0, -18.0),  # 南极半岛站Antarctic-Peninsula
+        (-10.0, -5.0),  # 南极半岛站Antarctic-Peninsula
         (8.0, -22.0),    # 南极东方站Antarctic-Vostok
         (12.0, -2.0),    # 马尔代夫海平面站Maldives-Sea
         (-20.0, 2.0),    # 加拉帕戈斯海洋站Galapagos-Ocean
@@ -38,34 +38,41 @@ def create_complex_steiner_scene():
 
     # 可选经过的点（中转站/补给站 - 7个）
     optional_points = [
-        (-5.0, 8.0),     # 冰岛火山站Iceland-Volcano
+        (-20.0, -15.0),     # 冰岛火山站Iceland-Volcano
         (2.0, 3.0),      # 阿尔卑斯山站Alps-Mountain
-        (-10.0, -10.0),  # 巴西高原站Brazil-Savanna
+        (-20.0, -10.0),  # 巴西高原站Brazil-Savanna
         (20.0, -20.0),   # 印尼雨林站Indonesia-Rainforest
-        (-18.0, 10.0),   # 加拿大北极站Canada-Arctic
+        (-18.0, 15.0),   # 加拿大北极站Canada-Arctic
         (10.0, -5.0),    # 中东沙漠站Dubai-Desert
-        (30.0, 10.0)     # 蒙古草原站Mongolia-Steppe
+        (30.0, 10.0),     # 蒙古草原站Mongolia-Steppe
+
+
+
+
+
+
+
     ]
 
     # 障碍物（极端气候区/禁飞区）
     obstacles = [
         # 南极洲风暴圈（极高风险）
-        {'center': (0.0, -20.0), 'radius': 5.0},
+        {'center': (0.0, -20.0), 'radius': 3.0},
         
         # 北大西洋低压区
-        {'center': (-12.0, 10.0), 'radius': 3.5},
+        {'center': (-12.0, 8.0), 'radius': 3.5},
         
         # 热带气旋带（赤道附近）
-        {'center': (22.0, -10.0), 'radius': 3.0},
+        {'center': (25.0, -10.0), 'radius': 3.0},
         
         # 西伯利亚极寒区
         {'center': (20.0, 12.0), 'radius': 3.0},
         
         # 安第斯山脉气流紊乱区
-        {'center': (-16.0, -8.0), 'radius': 2.0},
+        {'center': (-15.0, -12.0), 'radius': 2.0},
         
         # 喜马拉雅高空风切变区
-        {'center': (18.0, 5.0), 'radius': 2.5}
+        {'center': (0.0, -5.0), 'radius': 4.0}
     ]
 
     # 整合所有点位
